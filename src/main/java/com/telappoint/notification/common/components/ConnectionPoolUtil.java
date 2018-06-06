@@ -1,5 +1,6 @@
 package com.telappoint.notification.common.components;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -59,10 +60,6 @@ public class ConnectionPoolUtil {
 	 * @throws Exception
 	 */
 	public JdbcCustomTemplate getJdbcCustomTemplate(Logger logger, Client client) throws TelAppointException {
-		if (client == null) {
-			throw new TelAppointException(ErrorConstants.ERROR_2000.getErrorCode(), ErrorConstants.ERROR_2000.getUserErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null, null);
-		}
-
 		String clientCode = client.getClientCode();
 		JdbcCustomTemplate jdbcCustomTemplate = datatSourceMap.get(clientCode);
 		if (jdbcCustomTemplate != null) {
@@ -74,16 +71,16 @@ public class ConnectionPoolUtil {
 				Class.forName(ConnectionPoolUtil.DRIVER).newInstance();
 				connectionPool = new GenericObjectPool();
 				connectionPool
-						.setMaxActive(Integer.valueOf(PropertyUtils.getValueFromProperties("MAX_ACTIVE", PropertiesConstants.NOTIFY_PHONE_REST_WS_PROP.getPropertyFileName())));
-				connectionPool.setMinIdle(Integer.valueOf(PropertyUtils.getValueFromProperties("MIN_IDLE", PropertiesConstants.NOTIFY_PHONE_REST_WS_PROP.getPropertyFileName())));
+						.setMaxActive(Integer.valueOf(PropertyUtils.getValueFromProperties("MAX_ACTIVE", PropertiesConstants.NOTIFY_SERVICE_REST_WS_PROP.getPropertyFileName())));
+				connectionPool.setMinIdle(Integer.valueOf(PropertyUtils.getValueFromProperties("MIN_IDLE", PropertiesConstants.NOTIFY_SERVICE_REST_WS_PROP.getPropertyFileName())));
 
-				String testOnBorrow = PropertyUtils.getValueFromProperties("testOnBorrow", PropertiesConstants.NOTIFY_PHONE_REST_WS_PROP.getPropertyFileName());
-				String validationQuery = PropertyUtils.getValueFromProperties("validationQuery", PropertiesConstants.NOTIFY_PHONE_REST_WS_PROP.getPropertyFileName());
-				String validationInterval = PropertyUtils.getValueFromProperties("validationInterval", PropertiesConstants.NOTIFY_PHONE_REST_WS_PROP.getPropertyFileName());
-				String removeAbandoned = PropertyUtils.getValueFromProperties("removeAbandoned", PropertiesConstants.NOTIFY_PHONE_REST_WS_PROP.getPropertyFileName());
-				String removeAbandonedTimeout = PropertyUtils.getValueFromProperties("removeAbandonedTimeout", PropertiesConstants.NOTIFY_PHONE_REST_WS_PROP.getPropertyFileName());
+				String testOnBorrow = PropertyUtils.getValueFromProperties("testOnBorrow", PropertiesConstants.NOTIFY_SERVICE_REST_WS_PROP.getPropertyFileName());
+				String validationQuery = PropertyUtils.getValueFromProperties("validationQuery", PropertiesConstants.NOTIFY_SERVICE_REST_WS_PROP.getPropertyFileName());
+				String validationInterval = PropertyUtils.getValueFromProperties("validationInterval", PropertiesConstants.NOTIFY_SERVICE_REST_WS_PROP.getPropertyFileName());
+				String removeAbandoned = PropertyUtils.getValueFromProperties("removeAbandoned", PropertiesConstants.NOTIFY_SERVICE_REST_WS_PROP.getPropertyFileName());
+				String removeAbandonedTimeout = PropertyUtils.getValueFromProperties("removeAbandonedTimeout", PropertiesConstants.NOTIFY_SERVICE_REST_WS_PROP.getPropertyFileName());
 				String timeBetweenEvictionRunsMillis = PropertyUtils.getValueFromProperties("timeBetweenEvictionRunsMillis",
-						PropertiesConstants.NOTIFY_PHONE_REST_WS_PROP.getPropertyFileName());
+						PropertiesConstants.NOTIFY_SERVICE_REST_WS_PROP.getPropertyFileName());
 
 				if (testOnBorrow == null)
 					testOnBorrow = "true";
@@ -123,12 +120,10 @@ public class ConnectionPoolUtil {
 					datatSourceMap.put(clientCode, jdbcCustomTemplate);
 				}
 				printStatus();
-			} catch (Exception e) {
+			} catch (IOException | IllegalAccessException | InstantiationException | ClassNotFoundException e) {
 				logger.error("Error while prepare the connection pool :", e);
-				// throw new Exception("Datasource failed: "+((e.getMessage()
-				// !=null)?e.getMessage():"") +e.toString());
-				throw new TelAppointException(ErrorConstants.ERROR_2000.getErrorCode(), ErrorConstants.ERROR_2000.getUserErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null,
-						null);
+				throw new TelAppointException(ErrorConstants.ERROR_2001.getErrorCode(), ErrorConstants.ERROR_2001.getUserErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR,
+						e.toString(), null);
 			}
 			return jdbcCustomTemplate;
 		}

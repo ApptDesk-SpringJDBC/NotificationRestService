@@ -1,0 +1,434 @@
+@charset "utf-8";
+/* CSS Document */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	border: 0;
+	font-family: 'Open Sans',Arial,sans-serif;
+	font-size: 13px;
+	font-style: inherit;
+	font-weight: inherit;
+	margin: 0;
+	outline: 0;
+	padding: 0;
+	vertical-align: baseline;
+	line-height: 1.6em;
+}
+:focus {/* remember to define focus styles! */
+	outline: 0;
+}
+
+table {/* tables still need 'cellspacing="0"' in the markup */
+	border-collapse: separate;
+	border-spacing: 0;
+}
+caption, th, td {
+	font-weight: normal;
+	text-align: left;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: "";
+}
+blockquote, q {
+	quotes: "" "";
+}
+a img {
+	border: 0;
+}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+* html{
+	height:100%;
+}
+h1, h2, h3, h4{
+	margin:0 0 10px 0;
+	padding:0;
+}
+h1{	font-size:18px;}
+h2{	font-size:16px;}
+h3{	font-size:13px; font-weight:bold}
+h4{	font-size:14px;}
+p{text-align:justify; padding:0; margin:0 0 10px 0;}
+a, a:visited, a:active{text-decoration:underline;}
+a:hover{text-decoration:none;}
+.floatLeft{float:left}
+.floatRight{float:right}
+.clearAll {clear: both;}
+.required{color:#F00;}
+#wrapper{
+	display:block;
+	width:980px;
+	margin:0 auto;
+}
+/*header section starts here */
+#branding{
+	clear:both;
+}
+#branding h1.logo{
+	float:left;
+	padding:5px 0 5px 10px;
+}
+#branding .contactDetails h2{
+	float:right;
+	font-weight:bold;
+	margin:50px 10px 0 0;
+	background:url(../images/contact-icon.png)no-repeat;
+	line-height:24px;
+	padding-left:30px;
+}
+/*header section ends here */
+/* Page Structure starts here*/
+#page{
+	display:block;
+	margin:0 auto 30px auto;
+	width:980px;
+	border:1px solid #e9e9e9;
+	border-radius:6px;
+	-moz-border-radius:6px; /* Old Firefox */
+	-moz-box-shadow: 1px 0px 4px #ebebeb; /* Old Firefox */
+	box-shadow: 1px 0px 4px #ebebeb;
+	background:#FFF;
+	clear:both;
+/*	min-height:480px;*/
+}
+#PageHeader{
+	clear:both;
+	height:100px;
+	background: #f2f8f9 url(../images/PageHeader-bg.jpg) repeat-x left bottom;
+	border-radius:6px 6px 0 0;
+	-moz-border-radius:6px 6px 0 0; /* Old Firefox */
+}
+#PageHeader h1{
+	float:left;
+	line-height:84px;
+	padding-left:30px;
+	margin:0;
+	font-size:22px;
+}
+.mainLink a, .mainLink a:link, .mainLink a:active{
+	float:right;
+	color:#333;
+	font-weight:bold;
+	margin-top:30px;
+	text-decoration:none;
+	display:block;
+	padding: 3px 10px;
+	margin-right:8px;
+	border-radius:6px;
+	-moz-border-radius:6px; /* Old Firefox */
+	border:1px solid #c4c4c4;
+	background: #bcd4da; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e9edee', endColorstr='#bcd4da'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#e9edee), to(#bcd4da)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #e9edee,  #bcd4da); /* for firefox 3.6+ */
+}
+
+.printbutton a, .printbutton a:link, .printbutton a:active{
+	float:right;
+	color:#333;
+	font-weight:bold;
+	margin-top:-32px;
+	text-decoration:none;
+	display:block;
+	padding: 3px 10px;
+	border-radius:6px;
+	-moz-border-radius:6px; /* Old Firefox */
+	border:1px solid #c4c4c4;
+	background: #bcd4da; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e9edee', endColorstr='#bcd4da'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#e9edee), to(#bcd4da)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #e9edee,  #bcd4da); /* for firefox 3.6+ */
+}
+.regButton{margin:0 auto; clear:both; width:220px;}
+.regButton input{
+	color:#333;
+	float:left;
+	font-weight:bold;
+	margin-top:30px;
+	text-decoration:none;
+	display:block;
+	padding: 3px 10px;
+	margin-right:8px;
+	border-radius:6px;
+	-moz-border-radius:6px; /* Old Firefox */
+	border:1px solid #c4c4c4;
+	background: #bcd4da; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e9edee', endColorstr='#bcd4da'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#e9edee), to(#bcd4da)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #e9edee,  #bcd4da); /* for firefox 3.6+ */
+}
+
+.mainLink a:hover{
+	text-decoration:underline;
+}
+#PageHeader .headerBottom{
+	background:url(../images/sideBar-bg.png) no-repeat right bottom;
+	height:16px;
+	clear:both;
+}
+#PageContainer{
+	padding:30px 20px 20px 30px;
+	clear:both;
+	float:left;
+	display:block;
+}
+#PageContent{
+	float:left;
+	width:466px;
+	padding-right:30px;
+}
+#PageContentFull{
+	float:left;
+	width:926px;
+}
+#PageContent h1,
+#PageContentFull h1{
+	border-bottom:1px solid #dce8ea;
+	line-height:30px;
+}
+#PageContent .content{
+	display:block;
+	cle1ar:both;
+}
+#PageContent .content img{
+	float:left;
+	margin:0 20px 20px 0;
+}
+#PageContent .content li{
+	list-style:inside;
+	font-weight:bold;
+	color:#0286B7;
+}
+.contentTabel{
+	border-left:1px solid #dce8ea;
+	border-right:1px solid #dce8ea;
+	border-top:1px solid #dce8ea;
+}
+.contentTabel td{
+	border-bottom: 1px solid #dce8ea;
+	padding:4px;
+}
+.contentTabel .altRow{
+	background:#dce8ea;
+}
+.contentTabel input{
+	width:260px;
+	font-size:14px;
+	font-weight:bold;
+	padding:0 10px;
+	height:35px;
+	background:#fff;
+	border:1px solid #dce8ea;
+}
+.contentTabel input.inputSmall{
+	margin-right: 20px;
+    width: 40px;
+}
+.contentTabel input.inputMedium{
+    width: 65px;
+}
+.reqDocuments{
+	clear:both;
+	margin-top:20px;
+}
+.contactMapContainer{
+	margin-top:20px;
+	display:block;
+	float:left; 
+	width:218px; 
+	margin-right:30px;
+}
+.contactMapContainerLast{
+	margin-right:0;
+}
+.contactMapContainer h1{
+	border-bottom: 1px solid #DCE8EA;
+    line-height: 24px;
+}
+.serviceMenuTable td{
+	padding:4px;
+}
+.serviceMenuTable td.ServiceHead{
+	background:#0286B7;
+	color:#FFF;
+	font-weight:bold;
+	text-align:left;
+}
+#sideBar{
+	float:left;
+	width:430px;
+}
+#sideBar .widget{
+	margin-top:-46px;
+	background:#0286b7;
+	color:#FFF;
+	padding:26px 20px 20px 20px;
+	margin-bottom:20px;
+	border-radius:0 0 6px 6px ;
+	-moz-border-radius: 0 0 6px 6px; /* Old Firefox */
+}
+.widget h1{
+	line-height:36px;
+	border-bottom:1px solid #026ca6;
+	margin:0;
+}
+.widget h1 a{
+	color:#FFF;
+	font-size:18px;
+}
+.widget .widgetContainer{
+	border-top:1px solid #019ac4;
+	clear:both;
+}
+.widget a.noLogin{
+	color:#FFF;
+	font-weight:bold;
+}
+.widget label{
+	float:left;
+	width:118px;
+	font-size:14px;
+	font-weight:bold;
+	padding-right:10px;
+	height:36px;
+	margin-top:20px;
+}
+.widget .timeslots{
+	float:left;
+	padding-left:118px;
+	font-size:14px;
+	font-weight:bold;
+	margin-top:20px;
+}
+.widget .timeslots input{
+	width:auto;
+	margin:0;
+	height:auto;
+}
+.widget .result{margin-top:20px; width:238px; font-weight:bold;font-size: 14px; float:left}
+.widget input{
+	width:239px;
+	font-size:14px;
+	font-weight:bold;
+	padding:0 10px;
+	height:35px;
+	background:#fff;
+	border-bottom:none;
+	border-right:none;
+	border-top:1px solid #575757;
+	border-left:1px solid #575757;
+	margin-top:20px;
+}
+.widget input.inputSmall{
+	margin-right: 20px;
+    width: 40px;
+}
+.widget input.inputMedium{
+    width: 65px;
+}
+.widget input.dateField{
+	width:100px;
+}
+
+.widget select{
+	width:238px;
+	background:#fff;
+	border:none;
+	margin-top:20px;
+	height:37px;
+	padding:6px 4px;
+}
+.widget select.timeField{
+	width:100px;
+	margin-left:20px;
+}
+.widget select.yearField{
+	width:110px;
+	margin-left:20px;
+}
+.widget select.monthField{
+	width:110px;
+}
+.widget input.button{
+	border:none;
+	border-radius:6px;
+	width:260px;
+	line-height:35px;
+	text-align:center;
+	color:#fff;
+	font-size:16px;
+	font-weight:bold;
+	border-radius:6px ;
+	-moz-border-radius:6px; /* Old Firefox */
+	margin:20px 0 0 128px;
+	clear:both;
+	background: #2d2f2f; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00506d', endColorstr='#2d2f2f'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#00506d), to(#2d2f2f)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #00506d,  #2d2f2f); /* for firefox 3.6+ */
+}
+.widget .error{
+	margin-left:128px;
+	background:#ff0000;
+	margin-top:3px;
+	width:254px;
+	padding:0 2px;
+}
+.widget .notes{
+	margin-left:128px;
+	color:#000;
+}
+.calendarIcon{
+	margin-top:8px;
+}
+.recentAppointments{
+	margin-bottom:20px;
+}
+.recentAppointments td{
+	border-bottom: 1px solid #359ec5;
+	vertical-align:top;
+	padding:4px;
+}
+.recentAppointments td a{
+	color:#fff;
+}
+.recentAppointments .appointmentName{
+	background: url(../images/appointment-arrow.png) no-repeat 0 8px;
+	padding-left:10px;
+	font-weight:bold;
+}
+.recentAppointments a.currentAppointment{
+	color:#000;
+	font-size:14px;
+}
+.recentAppointments .location{
+	clear:both;
+	font-weight:normal;
+}
+
+/* Page Structure ends here*/
+/*Footer starts here */
+#footer{
+	height:82px;
+	background: #f2f8f9 url(../images/footer-bg.jpg) repeat-x left top;
+	padding:20px;
+	border-radius:0 0 6px 6px;
+	-moz-border-radius:0 0 6px 6px; /* Old Firefox */
+	clear:both;
+}
+#footer .footerContent{
+	float:left;
+}
+#footer .footerLinks{
+	float:right;
+}
+/*Footer ends here */

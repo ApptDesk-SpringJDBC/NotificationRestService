@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
        xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
@@ -14,26 +14,36 @@
     <context:component-scan base-package="com.telappoint.notification.controller"/>
 
     <mvc:resources mapping="/resources/**" location="/src/main/resources/"/>
+    <mvc:resources mapping="/static/**" location="/static/" />
 
+	<mvc:annotation-driven />
+	<bean
+		class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+		<property name="contentType" value="text/plain" />
+	</bean>
+	
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />
 
-    <!-- <context:property-placeholder location="/WEB-INF/message.properties"/>-->
+	<bean id="jsonResolver"
+		class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+		<property name="objectMapper" ref="jsonMapper" />
+	</bean>
 
-    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
+	<bean id="jsonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="objectMapper" ref="jsonMapper" />
+	</bean>
 
-    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
-        <property name="favorPathExtension" value="false" />
-        <property name="favorParameter" value="false" />
-        <property name="ignoreAcceptHeader" value="false" />
-        <property name="defaultContentType" value="application/json" />
-        <property name="mediaTypes">
-            <value>
-                json=application/json
-                xml=application/xml
-                html=text/html
-                *=*/*
-            </value>
-        </property>
-    </bean>
+	<bean id="jsonMapper" class="org.codehaus.jackson.map.ObjectMapper">
+		<property name="serializationConfig.annotationIntrospector"
+			ref="jsonIntrospector" />
+		<property name="deserializationConfig.annotationIntrospector"
+			ref="jsonIntrospector" />
+	</bean>
+
+	<bean id="jsonIntrospector" class="org.codehaus.jackson.xc.JaxbAnnotationIntrospector"/>
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <!-- NOTE: it is important to specify the order property, so this adapter
             will be attempted before the HandlerAdapter that Spring MVC automatically
@@ -62,5 +72,5 @@
 
     <bean id="handlerMapping"
           class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
-
+          
 </beans>

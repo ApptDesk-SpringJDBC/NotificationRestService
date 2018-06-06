@@ -15,6 +15,9 @@ public class CampaignMessageSMS {
 	private String lang;
 	private String subject;
 	private String message;
+	private String inputResponse1;
+	private String inputResponse2;
+	private String elseResponse;
 
 	public Long getCampaignId() {
 		return campaignId;
@@ -54,5 +57,29 @@ public class CampaignMessageSMS {
 
 	public void setCampaignMessageSMSId(Long campaignMessageSMSId) {
 		this.campaignMessageSMSId = campaignMessageSMSId;
+	}
+
+	public String getInputResponse1() {
+		return inputResponse1;
+	}
+
+	public void setInputResponse1(String inputResponse1) {
+		this.inputResponse1 = inputResponse1;
+	}
+
+	public String getInputResponse2() {
+		return inputResponse2;
+	}
+
+	public void setInputResponse2(String inputResponse2) {
+		this.inputResponse2 = inputResponse2;
+	}
+
+	public String getElseResponse() {
+		return elseResponse;
+	}
+
+	public void setElseResponse(String elseResponse) {
+		this.elseResponse = elseResponse;
 	}
 }

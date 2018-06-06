@@ -1,6 +1,5 @@
 package com.telappoint.notification.common.model;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
@@ -8,7 +7,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
  * @author Balaji N
  *
  */
-@JsonAutoDetect
+
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class BaseResponse {
 	private boolean responseStatus = true;

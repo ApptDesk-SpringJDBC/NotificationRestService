@@ -7,7 +7,8 @@ package com.telappoint.notification.common.constants;
  */
 public enum PropertiesConstants {
 
-	NOTIFY_PHONE_REST_WS_PROP("notifications.properties");
+	NOTIFY_SERVICE_REST_WS_PROP("notificationRestService.properties"),
+	PHONE_LOG_FILE_UPLOAD_PROP("phoneLogFileUpload.properties");
 	
 	private String propertyFileName;
 	

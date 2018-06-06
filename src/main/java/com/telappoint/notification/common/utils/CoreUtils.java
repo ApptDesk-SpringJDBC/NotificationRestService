@@ -6,9 +6,11 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TimeZone;
@@ -25,6 +27,36 @@ import com.telappoint.notification.common.constants.CommonDateContants;
  */
 public class CoreUtils {
 	private static DateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+	
+	private static final ThreadLocal<DateFormat> tldfyyyyMMddHHmm = new ThreadLocal<DateFormat>() {
+		@Override
+		protected DateFormat initialValue() {
+			return new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		}
+	};
+	//tldfyyyyMMddHHmm.get().parse(source);
+	
+	public static DateFormat getSimpleDateFormatYYYYMMDDHHMM() {
+		return tldfyyyyMMddHHmm.get();
+	}
+	//tldfyyyyMMddHHmm.get().parse(source);
+	
+	public static String getToken(String clientCode, String device) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(clientCode);
+		sb.append(device);
+		sb.append(formatter.format(new Date()));
+		sb.append(GenerateRandomToken.getRandomToken(6, "N"));
+		return UUID.nameUUIDFromBytes(sb.toString().getBytes()).toString();
+	}
+	
+	public static boolean isValidEmailAddress(String email) {
+		if (email == null || "".equals(email))
+			return false;
+		java.util.regex.Pattern p = java.util.regex.Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-']+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		java.util.regex.Matcher m = p.matcher(email);
+		return m.matches();
+	}
 
 	public static Object getPropertyValue(Object object, String fieldName) throws NoSuchFieldException {
 		try {
@@ -43,6 +75,25 @@ public class CoreUtils {
 			throw new NoSuchFieldException(object.getClass() + " has no field " + fieldName);
 		}
 		return "";
+	}
+	
+	/**
+	 * Used to split the message to multiple parts because of message length is
+	 * exceeded 160 characters.
+	 */
+	public static List<String> splitMessage(String message) {
+		ArrayList<String> messages = new ArrayList<String>();
+		char[] sAr = message.toCharArray();
+		int start = 0;
+		for (int i = 160; i < sAr.length; i--) {
+			if (sAr[i] == ' ') {
+				messages.add(message.substring(start, i));
+				start = i + 1;
+				i += 160;
+			}
+		}
+		messages.add(message.substring(start));
+		return messages;
 	}
 
 	public static <T, E> T getKeyByValue(Map<T, E> map, E value) {

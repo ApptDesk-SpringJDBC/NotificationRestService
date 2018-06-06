@@ -1,0 +1,5 @@
+# every day 10AM and evening 7PM
+* 10 19 * * ~/scripts/downloadPhoneNotifications.sh Preview >> ~/cronlogs/downloadNotificationCron.log
+* 10 19 * ~/scripts/sendEmailNotifications.sh Preview >> ~/cronlogs/sendEmailnotificationCron.log
+* 10 19 * * ~/scripts/sendSMSNotifications.sh Preview >> ~/cronlogs/sendSMSnotificationCron.log
+

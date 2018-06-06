@@ -24,9 +24,11 @@ public class DialerSetting {
 	private String callFrom2;
 	private String callTo2;
 	private Integer hoursStopCalling;
-	private Integer daysBeforeStartCalling;
+	private Integer daysBeforeStartCalling=0;
 	private Integer totMaxAttempts;
 	private Integer maxAttemptsPerDay;
+	private Integer timeIntervalBetweenAttempts;
+	private Integer busDaysBeforeStartCalling=0;
 	
 	public String getCallerName() {
 		return callerName;
@@ -162,5 +164,21 @@ public class DialerSetting {
 
 	public void setMaxAttemptsPerDay(Integer maxAttemptsPerDay) {
 		this.maxAttemptsPerDay = maxAttemptsPerDay;
+	}
+
+	public Integer getTimeIntervalBetweenAttempts() {
+		return timeIntervalBetweenAttempts;
+	}
+
+	public void setTimeIntervalBetweenAttempts(Integer timeIntervalBetweenAttempts) {
+		this.timeIntervalBetweenAttempts = timeIntervalBetweenAttempts;
+	}
+
+	public Integer getBusDaysBeforeStartCalling() {
+		return busDaysBeforeStartCalling;
+	}
+
+	public void setBusDaysBeforeStartCalling(Integer busDaysBeforeStartCalling) {
+		this.busDaysBeforeStartCalling = busDaysBeforeStartCalling;
 	}
 }

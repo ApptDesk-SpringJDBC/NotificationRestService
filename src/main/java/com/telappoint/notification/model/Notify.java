@@ -26,6 +26,11 @@ public class Notify {
 	private String email;
 	
 	private Integer locationId;
+	private Integer resourceId;
+	private Integer serviceId;
+	private String includeAudio1;
+	private String includeAudio4;
+
 	private Long seatId;
 	private Long eventDateTimeId;
 	private Long customerId;
@@ -38,6 +43,7 @@ public class Notify {
 	private String notifyByEmailConfirm;
 	private String notifyByPushNotif;
 	private Integer notifyPushNotificationStatus;
+	
 	
 	public Long getNotifyId() {
 		return notifyId;
@@ -257,5 +263,37 @@ public class Notify {
 
 	public void setCellPhone(String cellPhone) {
 		this.cellPhone = cellPhone;
+	}
+	
+	public Integer getResourceId() {
+		return resourceId;
+	}
+
+	public void setResourceId(Integer resourceId) {
+		this.resourceId = resourceId;
+	}
+
+	public Integer getServiceId() {
+		return serviceId;
+	}
+
+	public void setServiceId(Integer serviceId) {
+		this.serviceId = serviceId;
+	}
+	
+	public String getIncludeAudio1() {
+		return includeAudio1;
+	}
+
+	public void setIncludeAudio1(String includeAudio1) {
+		this.includeAudio1 = includeAudio1;
+	}
+
+	public String getIncludeAudio4() {
+		return includeAudio4;
+	}
+
+	public void setIncludeAudio4(String includeAudio4) {
+		this.includeAudio4 = includeAudio4;
 	}
 }

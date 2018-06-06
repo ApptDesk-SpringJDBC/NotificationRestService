@@ -3,7 +3,6 @@ package com.telappoint.notification.common.masterdb.dao.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -11,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
-
 import com.telappoint.notification.common.constants.ErrorConstants;
 import com.telappoint.notification.common.masterdb.dao.MasterDAO;
 import com.telappoint.notification.common.model.Client;
@@ -66,6 +64,7 @@ public class MasterDAOImpl implements MasterDAO {
 						client.setCacheEnabled(rs.getString("cache_enabled"));
 						client.setApptLink(rs.getString("appt_link"));
 						client.setDirectAccessNumber(rs.getString("direct_access_number"));
+						client.setAppcode(rs.getString("appcode"));
 						clientCacheMap.put(key + "|" + clientCode, client);
 					}
 					return clientCacheMap;
@@ -73,6 +72,47 @@ public class MasterDAOImpl implements MasterDAO {
 			});
 		} catch (DataAccessException dae) {
 			throw new TelAppointException(ErrorConstants.ERROR_1000.getErrorCode(), ErrorConstants.ERROR_1000.getUserErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR,
+					dae.toString(), null);
+		}
+	}
+	
+	@Override
+	public Client getClientByPhone(String smsPhone) throws TelAppointException {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select * from client c where delete_flag='N' and id=(select client_id from sms_config where sms_phone=?)");
+		try {
+			return masterJdbcTemplate.query(sql.toString(), new Object[]{smsPhone}, new ResultSetExtractor<Client>() {
+				@Override
+				public Client extractData(ResultSet rs) throws SQLException, DataAccessException {
+					Client client = null;
+					String clientCode = null;
+					if (rs.next()) {
+						clientCode = rs.getString("client_code");
+						client = new Client();
+						client.setClientId(rs.getInt("id"));
+						client.setClientCode(clientCode);
+						client.setClientName(rs.getString("client_name"));
+						client.setWebsite(rs.getString("website"));
+						client.setContactEmail(rs.getString("contact_email"));
+						client.setFax(rs.getString("fax"));
+						client.setAddress(rs.getString("address"));
+						client.setAddress2(rs.getString("address2"));
+						client.setCity(rs.getString("city"));
+						client.setState(rs.getString("state"));
+						client.setZip(rs.getString("zip"));
+						client.setCountry(rs.getString("country"));
+						client.setDbName(rs.getString("db_name"));
+						client.setDbServer(rs.getString("db_server"));
+						client.setCacheEnabled(rs.getString("cache_enabled"));
+						client.setApptLink(rs.getString("appt_link"));
+						client.setDirectAccessNumber(rs.getString("direct_access_number"));
+						client.setAppcode(rs.getString("appcode"));
+					}
+					return client;
+				}
+			});
+		} catch (DataAccessException dae) {
+			throw new TelAppointException(ErrorConstants.ERROR_1023.getErrorCode(), ErrorConstants.ERROR_1023.getUserErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR,
 					dae.toString(), null);
 		}
 	}

@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
 
-	<display-name>New Reservation Desk Rest Application</display-name>
-	<description>New Reservation Desk WS Rest Service</description>
+	<display-name>NotificationRestService Application</display-name>
+	<description>NotificationRestService Application</description>
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -28,7 +28,7 @@
 
 	<servlet-mapping>
 		<servlet-name>DispatcherServlet</servlet-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
 	<listener>

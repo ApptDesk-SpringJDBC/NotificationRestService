@@ -1,0 +1,52 @@
+1) isLocked = Y/N
+select locked from dialer_lock where device_type = 'phone';
+if = Y (Can't dial now because it is Locked)
+if = Y & end_time + 2hr > current_time, then unlock and Go to Step 2
+if = N --> go to Step 2
+
+2) loop all campaign_id in dialer_settings
+
+a) campaign_id = 1
+fetch all values in dialer_settings for campaign_id = 1
+2.1) can dial today (Sunday) --> if N, terminate (Can't dial today  -Sunday)
+2.2) can dial now (from_1, to_1, from_2, to_2 & current_time) --> if N (Can't dial now --> out of window)
+2.3) isTimeIntervalReached (current_time > dialer_lock.end_time + dialer_settings.time_interval_between_attempts). If N, Can't dial, because time interval is not reached
+2.4) fetch notification list for the campaign_id = 1
+
+b) campaign_id = 2
+fetch all values in dialer_settings for campaign_id = 2
+2.1) can dial today (Sunday) --> if N, terminate (Can't dial today  -Sunday)
+2.2) can dial now (from_1, to_1, from_2, to_2 & current_time) --> if N (Can't dial now --> out of window)
+2.3) isTimeIntervalReached (current_time > dialer_lock.end_time + dialer_settings.time_interval_between_attempts). If N, Can't dial, because time interval is not reached
+2.4) fetch notification list for the campaign_id = 2
+
+NotificationList (campaign_id = 1) + NotificationList (campaign_id = 2) 
+
+return this csv file to frontend script
+
+=================
+Logic to fetch the notification list:
+
+if (days_before_start_calling is not NULL) START_DATE = current_time + hours_stop_calling  / current_time + days_before_start_calling @ 11:59 PM
+else (bus_days_before_start_callig is not NULL) START_DATE = current_time + hours_stop_calling  / current_time + number_bus_days @ 11:59 PM
+
+today = mon
+no_bus_days = 1
+tue = N
+wed = N
+Thu = Y
+
+if(days_before_start_calling == 0) START_DATE = current_time + hours_stop_calling / END_DATE = START_DATE @ 11:59 PM
+
+notify.due_date_time >= START_DATE and notify.due_date_time <= END_DATE
+
+=================
+front end - got CSV file - 100 records
+if (no of records > 0) {
+ivrnotify -- read first record (CLIENT_CODE, NOTIFY_ID)
+1) update dialer_lock.start_time = now() + timezone && locked = Y
+loop start
+2) finish notification for notify_id --> update dialer_loc.end_time
+loop end
+locked = N
+}

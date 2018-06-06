@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-import com.telappoint.notification.common.clientdb.dao.NotifyResvDAO;
+import com.telappoint.notification.common.clientdb.dao.NotifyDAO;
 import com.telappoint.notification.common.constants.CacheConstants;
 import com.telappoint.notification.common.constants.ErrorConstants;
 import com.telappoint.notification.common.masterdb.dao.MasterDAO;
@@ -34,7 +34,7 @@ public class CacheComponent {
 	private MasterDAO masterDAO;
 	
 	@Autowired
-	private NotifyResvDAO notifyResvDAO;
+	private NotifyDAO notifyResvDAO;
 	
 	public Client getClient(Logger logger, String clientCode, String device, boolean cache) throws TelAppointException {
 		StringBuilder key = new StringBuilder();
@@ -58,7 +58,7 @@ public class CacheComponent {
 				BaseRequest baseRequest = new BaseRequest();
 				baseRequest.setClientCode(clientCode);
 				baseRequest.setDevice(device);
-				throw new TelAppointException(ErrorConstants.ERROR_2000.getErrorCode(), ErrorConstants.ERROR_2000.getUserErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR, "Client not found!", baseRequest.toString());
+				throw new TelAppointException(ErrorConstants.ERROR_2998.getErrorCode(), ErrorConstants.ERROR_2998.getUserErrorMessage(), HttpStatus.INTERNAL_SERVER_ERROR, "Client not found!", baseRequest.toString());
 			}
 			return client;
 		}

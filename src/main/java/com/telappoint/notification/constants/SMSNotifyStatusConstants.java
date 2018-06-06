@@ -23,7 +23,7 @@ public enum SMSNotifyStatusConstants {
 	 * Below constants related to notify_sms_status table(call_status) for SMS
 	 */
 	
-	NOTIFY_SMS_STATUS_DISPALACEMENT(0,"Displacement"),
+	NOTIFY_SMS_STATUS_DISPLACEMENT(0,"Displacement"),
 	NOTIFY_SMS_STATUS_SENT(1,"Sent"),
 	NOTIFY_SMS_STATUS_CONFIRMED(2,"Confirmed"),
 	NOTIFY_SMS_STATUS_CANCELLED(3,"Cancelled"),

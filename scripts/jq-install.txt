@@ -1,0 +1,15 @@
+linux:
+
+
+$ wget http://stedolan.github.io/jq/download/linux32/jq (32-bit system)
+$ wget http://stedolan.github.io/jq/download/linux64/jq (64-bit system)
+$ chmod +x ./jq
+$ sudo cp jq /usr/bin
+
+
+git bash shell:
+
+https://stedolan.github.io/jq/download/
+
+download jq-win64.exe if 64bit oS. rename jq-win64.exe to jq.exe and place it under git installed directory ===> C:\Program Files\Git\mingw64\bin
+
