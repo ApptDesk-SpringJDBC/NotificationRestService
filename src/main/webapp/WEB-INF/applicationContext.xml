@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	   		http://www.springframework.org/schema/context
+	   		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/mvc
+			http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+			http://www.springframework.org/schema/tx
+       		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       		http://www.springframework.org/schema/task
+   			http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+
+    <!-- Activates various annotations to be detected in bean classes -->
+    <context:annotation-config />
+
+    <!-- Scans the classpath for annotated components that will be auto-registered as Spring beans.
+     For example @Controller and @Service. Make sure to set the correct base-package-->
+
+   	<context:component-scan base-package="com.telappoint.notification"/>
+    <!-- Configures the annotation-driven Spring MVC Controller programming model.
+    Note that, with Spring 3.0, this tag works in Servlet MVC only!  -->
+
+    <mvc:annotation-driven />
+
+    <mvc:resources mapping="/resources/**" location="/src/main/resources/" />
+
+
+    <!--  <context:property-placeholder location="/WEB-INF/resvdb.properties" /> -->
+     <context:property-placeholder location="classpath:notifications.properties" />
+    <!--  <context:property-placeholder location="file:/apps/properties/resvdb.properties" />-->
+
+    <bean id="masterDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${app.jdbc.driverClassName}"/>
+        <property name="url" value="${app.jdbc.masterdb.url}"/>
+        <property name="username" value="${app.jdbc.masterdb.username}"/>
+        <property name="password" value="${app.jdbc.masterdb.password}"/>
+    </bean>
+
+    <bean id="masterTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="masterDataSource"/>
+    </bean>
+
+    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg ref="masterDataSource"/>
+    </bean>
+    <!-- Enable annotation style of managing transactions -->
+    <tx:annotation-driven transaction-manager="masterTransactionManager" />
+
+    <bean name="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename">
+            <value>appt</value>
+        </property>
+    </bean>
+    
+    <bean name="masterDAO" class="com.telappoint.notification.common.masterdb.dao.impl.MasterDAOImpl">
+        <constructor-arg ref="masterJdbcTemplate"/>
+    </bean>
+     
+    <bean id="masterJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="masterDataSource"></property>
+    </bean>
+    
+    <!--  Executor for the methods marked wiht @async annotations--> 
+	<!--  http://docs.spring.io/spring/docs/3.2.x/spring-framework-reference/html/scheduling.html#scheduling-annotation-support-async -->
+ 	<task:executor id="mailExecutor"  pool-size="5-25"  queue-capacity="100"  rejection-policy="CALLER_RUNS"/>  
+	<!--  Configuration for the Runtime  -->
+	<task:annotation-driven executor="mailExecutor" />
+
+</beans>
